@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>手风琴</title>
+</head>
+<style>
+        ul {
+            list-style: none
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        div{
+            position: relative;
+            width: 1200px;
+            height: 400px;
+            margin: 50px auto;
+            border: 1px solid red;
+            overflow: hidden;
+        }
+        div li {
+            width: 1200px;
+            height: 400px;
+            position: absolute;
+        }
+</style>
+<body>
+<div id="box">
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+<script src="tool.js"></script>
+<script>
+    //设置li的背景
+    var box = document.getElementById('box');
+    var list = box.children[0];
+    var lis= list.children;
+
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].style.backgroundImage="url(images/"+(i+1)+".jpg";
+        //根据索引设置每一个Li的left值
+        lis[i].style.left=i*240+"px";
+        //给每一个li设置索引值
+        lis[i].index=i;
+        //添加移入事件
+        lis[i].onmouseover=function(){
+            //移入的这个li距离上一个li只有100
+            for (var i = 0; i < lis.length; i++) {
+                if (i <= this.index) {
+                    animate(lis[i], {"left": 100 * i});
+                } else {
+                    animate(lis[i], {"left": 100 * i + 700});
+                }
+            }
+        };
+                //移出，设置每个li的left回到240
+        lis[i].onmouseout = function () {
+            for (var i = 0; i < lis.length; i++) {
+                animate(lis[i], {"left": 240 * i});
+            }
+        };
+    }
+</script>
+</html>
